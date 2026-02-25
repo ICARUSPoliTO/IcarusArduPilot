@@ -445,7 +445,7 @@ fi
 SCRIPT_DIR="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
 ARDUPILOT_ROOT=$(realpath "$SCRIPT_DIR/../../")
 
-PIP_USER_ARGUMENT="--user"
+PIP_USER_ARGUMENT=""
 
 # create a Python venv on more recent releases:
 PYTHON_VENV_PACKAGE=""

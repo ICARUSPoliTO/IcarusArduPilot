@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<!-- U8 II T-Motor -->
+
+<electric_engine name="electric_1mw" type="Electric">
+  <power unit="WATTS">  1272 </power>
+</electric_engine>
