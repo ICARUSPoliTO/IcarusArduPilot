@@ -28,9 +28,9 @@
     <vtailarm unit="M"> 1.723 </vtailarm>
 
     <location name="AERORP" unit="M">  
-    <x> 0.4466483 </x>
+    <x> 0.11790 </x>
     <y> 0.0 </y>
-    <z> 0.0 </z>
+    <z> 0.02342 </z>
     </location>
 
     <!-- insert if you want use on a 3d sim
@@ -62,16 +62,19 @@
 
     </documentation>
 
-    <ixx unit="KG*M2"> 50.05 </ixx>
-    <iyy unit="KG*M2"> 69.39 </iyy>
-    <izz unit="KG*M2"> 20.50 </izz>
-    <ixy unit="KG*M2"> 2.54 </ixy>
+    <iyy unit="KG*M2"> 19.49 </iyy>
+    <ixx unit="KG*M2"> 50.03 </ixx>
+    <izz unit="KG*M2"> 68.39 </izz>
+    <ixz unit="KG*M2"> 2.44  </ixz>  
+    <ixy unit="KG*M2"> -0.01 </ixy>
+    <iyz unit="KG*M2"> -0.01 </iyz> 
+
 
     <emptywt unit="KG"> 24.9 </emptywt>
     <location name="CG" unit="M">
-    <x> 0.20 </x>
-    <y> 0.02 </y>
-    <z> 0.00 </z>
+    <x> 0.059 </x>
+    <y> 0.00 </y>
+    <z> 0.02 </z>
     </location>
 
 
@@ -81,45 +84,45 @@
 	<ground_reactions>
 		<contact type="BOGEY" name="NOSE">
 			<location unit="M">
-				<x> 0.20 </x>
+				<x> 1.00 </x>
      			<y> 0 </y>
-     			<z> -0.75 </z>
+     			<z> -0.70 </z>
 			</location>
 			<static_friction>  0.80 </static_friction>
    			<dynamic_friction> 0.50 </dynamic_friction>
    			<rolling_friction> 0.02 </rolling_friction>
-   			<spring_coeff unit="N/M"> 300 </spring_coeff>
-   			<damping_coeff unit="N/M/SEC"> 50 </damping_coeff>
+   			<spring_coeff unit="N/M"> 9000 </spring_coeff>
+   			<damping_coeff unit="N/M/SEC"> 2000 </damping_coeff>
    			<max_steer> 0 </max_steer>
    			<brake_group> NONE </brake_group>
    			<retractable> 1 </retractable>
 		</contact>
 		<contact type="BOGEY" name="RIGHT">
 			<location unit="M">
-				<x> 1.80 </x>
-     			<y> 1 </y>
-     			<z> -0.75 </z>
+				<x> -1.00 </x>
+     			<y> 1.00 </y>
+     			<z> -0.70 </z>
 			</location>
 			<static_friction>  0.80 </static_friction>
    			<dynamic_friction> 0.50 </dynamic_friction>
    			<rolling_friction> 0.02 </rolling_friction>
-   			<spring_coeff unit="N/M"> 300 </spring_coeff>
-   			<damping_coeff unit="N/M/SEC"> 50 </damping_coeff>
+   			<spring_coeff unit="N/M"> 9000 </spring_coeff>
+   			<damping_coeff unit="N/M/SEC"> 2000 </damping_coeff>
    			<max_steer> 0 </max_steer>
    			<brake_group> NONE </brake_group>
    			<retractable> 1 </retractable>
 		</contact>
 		<contact type="BOGEY" name="LEFT">
 			<location unit="M">
-				<x> 1.80 </x>
-     			<y> -1 </y>
-     			<z> -0.75 </z>
+				<x> -1.00 </x>
+     			<y> -1.00 </y>
+     			<z> -0.70 </z>
 			</location>
 			<static_friction>  0.80 </static_friction>
    			<dynamic_friction> 0.50 </dynamic_friction>
    			<rolling_friction> 0.02 </rolling_friction>
-   			<spring_coeff unit="N/M"> 300 </spring_coeff>
-   			<damping_coeff unit="N/M/SEC"> 50 </damping_coeff>
+   			<spring_coeff unit="N/M"> 9000 </spring_coeff>
+   			<damping_coeff unit="N/M/SEC"> 2000 </damping_coeff>
    			<max_steer> 0 </max_steer>
    			<brake_group> NONE </brake_group>
    			<retractable> 1 </retractable>
@@ -129,9 +132,9 @@
 	<propulsion>
         <engine file="engine">
             <location unit="M"> <!--Posizione del motore rispetto a CM, da modificare(?) -->
-                <x> 0.692 </x>
-                <y> 1 </y>
-                <z> 0.03 </z>
+                <x> -1.070 </x>
+                <y> 1.102 </y>
+                <z> -0.05 </z>
             </location>
             <orient unit="DEG"> <!--Orientamento del motore -->
                 <roll> 0.0 </roll>
@@ -141,9 +144,9 @@
             <feed>0</feed> <!--serbatoio da cui prende il carburante (0 se c'è solo un motore) -->
             <thruster file="thruster">
                 <location unit="M"> <!--Posizione del thruster rispetto a CM, da modificare(?) -->
-                    <x> 0.692 </x>
-                    <y> 0 </y>
-                    <z> 0.03 </z>
+                    <x> -1.075 </x>
+                    <y> 1.102 </y>
+                    <z> -0.05 </z>
                 </location>
                 <orient unit="DEG">
                     <roll> 0.0 </roll>
@@ -155,9 +158,9 @@
         </engine>
 		<engine file="engine">
             <location unit="M"> <!--Posizione del motore rispetto a CM, da modificare(?) -->
-                <x> 0.692 </x>
-                <y> -1 </y>
-                <z> 0.03 </z>
+                <x> -1.070 </x>
+                <y> -1.102 </y>
+                <z> -0.05 </z>
             </location>
             <orient unit="DEG"> <!--Orientamento del motore -->
                 <roll> 0.0 </roll>
@@ -167,9 +170,9 @@
             <feed>0</feed> <!--serbatoio da cui prende il carburante (0 se c'è solo un motore) -->
             <thruster file="thruster">
                 <location unit="M"> <!--Posizione del thruster rispetto a CM, da modificare(?) -->
-                    <x> 0.692 </x>
-                    <y> -1 </y>
-                    <z> 0.03 </z>
+                    <x> -1.075 </x>
+                    <y> -1.102 </y>
+                    <z> -0.05 </z>
                 </location>
                 <orient unit="DEG">
                     <roll> 0.0 </roll>
@@ -305,7 +308,7 @@
 	</flight_control>
 	
 	<aerodynamics>
-		<axis name="DRAG">
+		<axis name="X">
             <function name="aero/coefficient/CD0">
                 <description>Drag_at_zero_lift</description>
                 <product>
@@ -327,7 +330,7 @@
 							  0.1222		0.06527867
 							  0.1396		0.07345306
 							  0.1658	0.08781984
-							  1.192	0.10577414
+							  0.192	0.10577414
 							  0.209	0.11710451
 							  0.2269	0.14303852
                           </tableData>
@@ -387,7 +390,7 @@
             </function> per adesso la drag dovuta alle eliche non ce la mettiamo-->
         </axis>
 
-        <axis name="SIDE">
+        <axis name="Y">
             <function name="aero/coefficient/CYb">
                 <description>Side_force_due_to_beta</description>
                 <product>
@@ -399,7 +402,7 @@
             </function>
         </axis>
 
-        <axis name="LIFT">
+        <axis name="Z">
             <function name="aero/coefficient/Lalpha">
                 <description>Lift_due_to_alpha</description>
                 <product>
