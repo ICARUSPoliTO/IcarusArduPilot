@@ -91,8 +91,8 @@
 			<static_friction>  0.80 </static_friction>
    			<dynamic_friction> 0.50 </dynamic_friction>
    			<rolling_friction> 0.02 </rolling_friction>
-   			<spring_coeff unit="N/M"> 9000 </spring_coeff>
-   			<damping_coeff unit="N/M/SEC"> 2000 </damping_coeff>
+   			<spring_coeff unit="N/M"> 15000 </spring_coeff>
+   			<damping_coeff unit="N/M/SEC"> 5000 </damping_coeff>
    			<max_steer> 0 </max_steer>
    			<brake_group> NONE </brake_group>
    			<retractable> 1 </retractable>
@@ -106,8 +106,8 @@
 			<static_friction>  0.80 </static_friction>
    			<dynamic_friction> 0.50 </dynamic_friction>
    			<rolling_friction> 0.02 </rolling_friction>
-   			<spring_coeff unit="N/M"> 9000 </spring_coeff>
-   			<damping_coeff unit="N/M/SEC"> 2000 </damping_coeff>
+   			<spring_coeff unit="N/M"> 15000 </spring_coeff>
+   			<damping_coeff unit="N/M/SEC"> 5000 </damping_coeff>
    			<max_steer> 0 </max_steer>
    			<brake_group> NONE </brake_group>
    			<retractable> 1 </retractable>
@@ -187,124 +187,155 @@
     </propulsion>
 	
 	<flight_control>
-        <channel name="All">
-            <summer name="Pitch Trim Sum">
-                <!-- Credo sia collegato direttamente all'Equlibratore, no changes.-->
-                <input>fcs/elevator-cmd-norm</input>
-                <input>fcs/pitch-trim-cmd-norm</input>
-                <clipto>
-                    <min>-1</min>
-                    <max>1</max>
-                </clipto>
-            </summer>
-            <aerosurface_scale name="Elevator Control">
-                <!-- EQUILIBRATORE DELTA_MAX-->
-                <input>fcs/pitch-trim-sum</input>
-                <range>
-                    <min>-0.4535555556</min>
-                    <max>0.4535555556</max>
-                </range>
-                <output>fcs/elevator-pos-rad</output>
-            </aerosurface_scale>
-            <aerosurface_scale name="Elevator Normalized">
-                <!-- EQUILIBRATORE DELTA_MAX-->
-                <input>fcs/elevator-pos-rad</input>
-                <domain>
-                    <min>-0.4535555556</min>
-                    <max> 0.4535555556</max>
-                </domain>
-                <range>
-                    <min>-1</min>
-                    <max> 1</max>
-                </range>
-                <output>fcs/elevator-pos-norm</output>
-            </aerosurface_scale>
-            <summer name="Roll Trim Sum">
-                <!-- Credo sia collegato all'Alettone, no changes.-->
-                <input>fcs/aileron-cmd-norm</input>
-                <input>fcs/roll-trim-cmd-norm</input>
-                <clipto>
-                    <min>-1</min>
-                    <max>1</max>
-                </clipto>
-            </summer>
-            <aerosurface_scale name="Left Aileron Control">
-                <!-- ALETTONE DELTA_MAX-->
-                <input>fcs/roll-trim-sum</input>
-                <range>
-                    <min>-0.175</min>
-                    <max>0.175</max>
-                </range>
-                <output>fcs/left-aileron-pos-rad</output>
-            </aerosurface_scale>
-            <aerosurface_scale name="Right Aileron Control">
-                <!-- ALETTONE DELTA_MAX-->
-                <input>-fcs/roll-trim-sum</input>
-                <range>
-                    <min>-0.175</min>
-                    <max>0.175</max>
-                </range>
-                <output>fcs/right-aileron-pos-rad</output>
-            </aerosurface_scale>
-            <aerosurface_scale name="Left aileron Normalized">
-                <!-- ALETTONE DELTA_MAX-->
-                <input>fcs/left-aileron-pos-rad</input>
-                <domain>
-                    <min>-0.175</min>
-                    <max> 0.175</max>
-                </domain>
-                <range>
-                    <min>-1</min>
-                    <max> 1</max>
-                </range>
-                <output>fcs/left-aileron-pos-norm</output>
-            </aerosurface_scale>
-            <aerosurface_scale name="Right aileron Normalized">
-                <!-- ALETTONE DELTA_MAX-->
-                <input>fcs/right-aileron-pos-rad</input>
-                <domain>
-                    <min>-0.175</min>
-                    <max> 0.175</max>
-                </domain>
-                <range>
-                    <min>-1</min>
-                    <max> 1</max>
-                </range>
-                <output>fcs/right-aileron-pos-norm</output>
-            </aerosurface_scale>
-            <summer name="Rudder Command Sum">
-                <!-- Forse collegato al Timone. no changes.-->
-                <input>fcs/rudder-cmd-norm</input>
-                <input>fcs/yaw-trim-cmd-norm</input>
-                <clipto>
-                    <min>-1</min>
-                    <max>1</max>
-                </clipto>
-            </summer>
-            <aerosurface_scale name="Rudder Control">
-                <!-- TIMONE DELTA_MAX ( NIENTE SUL FILE). Ho messo io 0.00-->
-                <input>fcs/rudder-command-sum</input>
-                <range>
-                    <min>-0.00</min>
-                    <max>0.00</max>
-                </range>
-                <output>fcs/rudder-pos-rad</output>
-            </aerosurface_scale>
-            <aerosurface_scale name="Rudder Normalized">
-                <!-- TIMONE DELTA_MAX ( NIENTE SUL FILE). Ho messo io 0.00-->
-                <input>fcs/rudder-pos-rad</input>
-                <domain>
-                    <min>-0.00</min>
-                    <max> 0.00</max>
-                </domain>
-                <range>
-                    <min>-1</min>
-                    <max> 1</max>
-                </range>
-                <output>fcs/rudder-pos-norm</output>
-            </aerosurface_scale>
-        </channel>
-        <!-- Elevator, Aileron e Rudder trovati! Per Rudder non ci sono i dati della Delta_max sul file di RA... -->
+		
+		<channel name="Roll">
+			<!-- Somma comando e trim -->
+			<summer name="fcs/roll-trim-sum">
+				<input>fcs/aileron-cmd-norm</input>
+				<input>fcs/roll-trim-cmd-norm</input>
+				<clipto>
+				    <min>-1</min>
+				    <max>1</max>
+				</clipto>
+			</summer>
+
+			<!-- Alettone Sinistro -->
+			<actuator name="fcs/left-aileron-control">
+				<input>fcs/roll-trim-sum</input>
+				<range>
+				    <min>-0.175</min> <!-- ~10 gradi -->
+				    <max> 0.175</max>
+				</range>
+				<!--  Ritardo e velocità massima di deflessione del servo (vedi doc)
+				<lag> 20 </lag>
+				<rate_limit> 1.0 </rate_limit> 
+				-->
+				<output>fcs/left-aileron-pos-rad</output> <!-- Letto dal bridge ArduPilot -->
+			</actuator>
+
+			<!-- Alettone Destro -->
+			<actuator name="fcs/right-aileron-control">
+				<input>-fcs/roll-trim-sum</input> <!-- Segno meno per movimento differenziale -->
+				<range>
+				    <min>-0.175</min>
+				    <max> 0.175</max>
+				</range>
+				<!--  Ritardo e velocità massima di deflessione del servo (vedi doc)
+				<lag> 20 </lag>
+				<rate_limit> 1.0 </rate_limit> 
+				-->
+				<output>fcs/right-aileron-pos-rad</output>
+			</actuator>
+
+			<!-- Riporta la deflessione al comando (-1,1) corrispondente, comodo per comparare comando e risposta -->
+			<aerosurface_scale name="fcs/left-aileron-normalized">
+				<input>fcs/left-aileron-pos-rad</input>
+				<domain>
+				    <min>-0.175</min>
+				    <max> 0.175</max>
+				</domain>
+				<range>
+				    <min>-1</min>
+				    <max> 1</max>
+				</range>
+				<output>fcs/left-aileron-pos-norm</output>
+			</aerosurface_scale>
+
+			<!-- Riporta la deflessione al comando (-1,1) corrispondente, comodo per comparare comando e risposta -->
+			<aerosurface_scale name="fcs/right-aileron-normalized">
+				<input>fcs/right-aileron-pos-rad</input>
+				<domain>
+				    <min>-0.175</min>
+				    <max> 0.175</max>
+				</domain>
+				<range>
+				    <min>-1</min>
+				    <max> 1</max>
+				</range>
+				<output>fcs/right-aileron-pos-norm</output>
+			</aerosurface_scale>
+		</channel>
+		
+		<channel name="Pitch">
+			<!-- Somma comando e trim -->
+			<summer name="fcs/pitch-trim-sum">
+				<input>fcs/elevator-cmd-norm</input>
+				<input>fcs/pitch-trim-cmd-norm</input>
+				<clipto>
+				    <min>-1</min>
+				    <max>1</max>
+				</clipto>
+			</summer>
+
+			<!-- Converte il comando (-1, 1) in radianti -->
+			<actuator name="fcs/elevator-control">
+				<input>fcs/pitch-trim-sum</input>
+				<range>
+				    <min>-0.4536</min> <!-- ~26 gradi in basso -->
+				    <max> 0.4536</max> <!-- ~26 gradi in alto -->
+				</range>
+				<!--  Ritardo e velocità massima di deflessione del servo (vedi doc)
+				<lag> 20 </lag>
+				<rate_limit> 1.0 </rate_limit> 
+				-->
+				<output>fcs/elevator-pos-rad</output> <!-- Proprietà letta dal bridge ArduPilot [3] -->
+			</actuator>
+
+			<!-- Riporta la deflessione al comando (-1,1) corrispondente, comodo per comparare comando e risposta -->
+			<aerosurface_scale name="fcs/elevator-normalized">
+				<input>fcs/elevator-pos-rad</input>
+				<domain>
+				    <min>-0.4536</min>
+				    <max> 0.4536</max>
+				</domain>
+				<range>
+				    <min>-1</min>
+				    <max> 1</max>
+				</range>
+				<output>fcs/elevator-pos-norm</output>
+			</aerosurface_scale>
+		</channel>
+		
+		<channel name="Yaw">
+			<!-- Somma dei comandi: ArduPilot SITL invia il comando rudder su fcs/rudder-cmd-norm -->
+			<summer name="fcs/rudder-command-sum">
+				<input>fcs/rudder-cmd-norm</input>
+				<input>fcs/yaw-trim-cmd-norm</input> <!-- Trim JSBSim -->
+				<clipto>
+				    <min>-1</min>
+				    <max>1</max>
+				</clipto>
+			</summer>
+
+			<!-- Conversione dal comando (-1, 1) a deflessione dell'attuatore -->
+			<actuator name="fcs/rudder-control"> <!-- actuator meglio di aerosurface_scale perchè permette di definire lag e rate_limit -->
+				<input>fcs/rudder-command-sum</input>
+				<range>
+				    <min>-0.175</min>	<!-- Deflessione inventata tra +-10° -->
+				    <max> 0.175</max>
+				</range>
+				<!--  Ritardo e velocità massima di deflessione del servo (vedi doc)
+				<lag> 20 </lag>
+				<rate_limit> 1.0 </rate_limit> 
+				-->
+				<output>fcs/rudder-pos-rad</output> <!-- Proprietà letta da ArduPilot -->
+			</actuator>
+
+			<!-- Riporta la deflessione al comando (-1,1) corrispondente, comodo per comparare comando e risposta -->
+			<aerosurface_scale name="fcs/rudder-normalized">
+				<input>fcs/rudder-pos-rad</input>
+				<domain>
+				    <min>-0.175</min>
+				    <max> 0.175</max>
+				</domain>
+				<range>
+				    <min>-1</min>
+				    <max> 1</max>
+				</range>
+				<output>fcs/rudder-pos-norm</output>
+			</aerosurface_scale>
+		</channel>
+		
 	</flight_control>
 	
 	<aerodynamics>
