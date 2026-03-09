@@ -62,8 +62,8 @@
 
     </documentation>
 
-    <iyy unit="KG*M2"> 19.49 </iyy>
-    <ixx unit="KG*M2"> 69.39 </ixx>
+    <iyy unit="KG*M2"> 69.39 </iyy>
+    <ixx unit="KG*M2"> 50.05 </ixx>
     <izz unit="KG*M2"> 20.50 </izz>
     <ixz unit="KG*M2"> 0.00  </ixz>  
     <ixy unit="KG*M2"> 2.54 </ixy>
