@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 
-from __future__ import annotations
-
 '''
 Wrapper around elf_diff (https://github.com/noseglasses/elf_diff)
 to create a html report comparing an ArduPilot build across two
@@ -18,6 +16,8 @@ Starting in the ardupilot directory.
 Output is placed into ELF_DIFF_[VEHICLE_NAME]
 '''
 
+from __future__ import annotations
+
 import copy
 import fnmatch
 import optparse
@@ -28,7 +28,10 @@ import shutil
 import tempfile
 import threading
 import time
+
 import board_list
+
+from build_script_base import VEHICLE_MAP
 from build_script_base import BuildScriptBase
 
 
@@ -130,19 +133,7 @@ class SizeCompareBranches(BuildScriptBase):
         for board in board_list.BoardList().boards:
             self.boards_by_name[board.name] = board
 
-        # map from vehicle names to binary names
-        self.vehicle_map = {
-            "rover"     : "ardurover",
-            "copter"    : "arducopter",
-            "plane"     : "arduplane",
-            "sub"       : "ardusub",
-            "heli"      : "arducopter-heli",
-            "blimp"     : "blimp",
-            "antennatracker" : "antennatracker",
-            "AP_Periph" : "AP_Periph",
-            "bootloader": "AP_Bootloader",
-            "iofirmware": "iofirmware_highpolh",  # FIXME: lowpolh?
-        }
+        self.vehicle_map = VEHICLE_MAP
 
         if all_boards:
             self.board = sorted(list(self.boards_by_name.keys()), key=lambda x: x.lower())
