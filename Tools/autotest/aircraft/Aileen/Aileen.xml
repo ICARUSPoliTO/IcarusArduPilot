@@ -422,43 +422,7 @@
             </function>
         </axis>
 
-<axis name="LIFT">
-            <function name="aero/coefficient/CL0">
-                <description>Lift_at_zero_alpha</description>
-                <product>
-                    <property>aero/qbar-psf</property>
-                    <property>metrics/Sw-sqft</property>
-                    <value>0.5457381</value> 
-                </product>
-            </function>
-
-            <function name="aero/coefficient/Lalpha">
-                <description>Lift_due_to_alpha</description>
-                <product>
-                    <property>aero/qbar-psf</property>
-                    <property>metrics/Sw-sqft</property>
-                    <property>aero/alpha-rad</property> <value>6.2047274</value>
-                </product>
-            </function>
-
-            <function name="aero/coefficient/Lde">
-                <description>Lift_due_to_Elevator_Deflection</description>
-                <product>
-                    <property>aero/qbar-psf</property>
-                    <property>fcs/elevator-pos-norm</property> 
-                    <value>0.6049687</value>
-                </product>
-            </function>
-    </axis> 
-
-    <!-- 
-
-
-
-
-
-
-<axis name="LIFT">
+        <axis name="LIFT">
             <function name="aero/coefficient/CLalpha">
                 <description>Lift_curve_from_table</description>
                 <product>
@@ -500,6 +464,42 @@
                 </product>
             </function>
         </axis>
+
+    <!-- 
+
+
+<axis name="LIFT">
+            <function name="aero/coefficient/CL0">
+                <description>Lift_at_zero_alpha</description>
+                <product>
+                    <property>aero/qbar-psf</property>
+                    <property>metrics/Sw-sqft</property>
+                    <value>0.5457381</value> 
+                </product>
+            </function>
+
+            <function name="aero/coefficient/Lalpha">
+                <description>Lift_due_to_alpha</description>
+                <product>
+                    <property>aero/qbar-psf</property>
+                    <property>metrics/Sw-sqft</property>
+                    <property>aero/alpha-rad</property> <value>6.2047274</value>
+                </product>
+            </function>
+
+            <function name="aero/coefficient/Lde">
+                <description>Lift_due_to_Elevator_Deflection</description>
+                <product>
+                    <property>aero/qbar-psf</property>
+                    <property>fcs/elevator-pos-norm</property> 
+                    <value>0.6049687</value>
+                </product>
+            </function>
+    </axis> 
+
+
+
+
 
 
     -->
