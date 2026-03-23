@@ -82,53 +82,50 @@
 	</mass_balance>
 	
 	<!-- The actual model doesn't have a landing gear, this is only used to takeoff in the simulation -->
-	<ground_reactions>
-		<contact type="BOGEY" name="NOSE">
-			<location unit="M">
-				<x> 1.00 </x>
-     			<y> 0 </y>
-     			<z> -0.70 </z>
-			</location>
-			<static_friction>  0.80 </static_friction>
-   			<dynamic_friction> 0.50 </dynamic_friction>
-   			<rolling_friction> 0.02 </rolling_friction>
-   			<spring_coeff unit="N/M"> 15000 </spring_coeff>
-   			<damping_coeff unit="N/M/SEC"> 5000 </damping_coeff>
-   			<max_steer> 0 </max_steer>
-   			<brake_group> NONE </brake_group>
-   			<retractable> 1 </retractable>
-		</contact>
-		<contact type="BOGEY" name="RIGHT">
-			<location unit="M">
-				<x> -1.00 </x>
-     			<y> 1.00 </y>
-     			<z> -0.70 </z>
-			</location>
-			<static_friction>  0.80 </static_friction>
-   			<dynamic_friction> 0.50 </dynamic_friction>
-   			<rolling_friction> 0.02 </rolling_friction>
-   			<spring_coeff unit="N/M"> 15000 </spring_coeff>
-   			<damping_coeff unit="N/M/SEC"> 5000 </damping_coeff>
-   			<max_steer> 0 </max_steer>
-   			<brake_group> NONE </brake_group>
-   			<retractable> 1 </retractable>
-		</contact>
-		<contact type="BOGEY" name="LEFT">
-			<location unit="M">
-				<x> -1.00 </x>
-     			<y> -1.00 </y>
-     			<z> -0.70 </z>
-			</location>
-			<static_friction>  0.80 </static_friction>
-   			<dynamic_friction> 0.50 </dynamic_friction>
-   			<rolling_friction> 0.02 </rolling_friction>
-   			<spring_coeff unit="N/M"> 9000 </spring_coeff>
-   			<damping_coeff unit="N/M/SEC"> 2000 </damping_coeff>
-   			<max_steer> 0 </max_steer>
-   			<brake_group> NONE </brake_group>
-   			<retractable> 1 </retractable>
-		</contact>
-	</ground_reactions>
+<ground_reactions>
+        <contact type="BOGEY" name="NOSE">
+            <location unit="M">
+                 <x> -3.00 </x> <y> 0 </y>
+                 <z> -1.20 </z>
+            </location>
+            <static_friction>  0.80 </static_friction>
+            <dynamic_friction> 0.50 </dynamic_friction>
+            <rolling_friction> 0.02 </rolling_friction>
+            <spring_coeff unit="N/M"> 1500 </spring_coeff>
+            <damping_coeff unit="N/M/SEC"> 200 </damping_coeff> <max_steer> 0 </max_steer>
+            <brake_group> NONE </brake_group>
+            <retractable> 0 </retractable> </contact>
+        
+        <contact type="BOGEY" name="RIGHT">
+            <location unit="M">
+                 <x> 2.00 </x> <y> 5.00 </y>
+                 <z> -1.20 </z>
+            </location>
+            <static_friction>  0.80 </static_friction>
+            <dynamic_friction> 0.50 </dynamic_friction>
+            <rolling_friction> 0.02 </rolling_friction>
+            <spring_coeff unit="N/M"> 1500 </spring_coeff>
+            <damping_coeff unit="N/M/SEC"> 200 </damping_coeff>
+            <max_steer> 0 </max_steer>
+            <brake_group> NONE </brake_group>
+            <retractable> 0 </retractable>
+        </contact>
+        
+        <contact type="BOGEY" name="LEFT">
+            <location unit="M">
+                 <x> 2.0 </x> <y> -5.00 </y>
+                 <z> -1.20 </z>
+            </location>
+            <static_friction>  0.80 </static_friction>
+            <dynamic_friction> 0.50 </dynamic_friction>
+            <rolling_friction> 0.02 </rolling_friction>
+            <spring_coeff unit="N/M"> 1500 </spring_coeff>
+            <damping_coeff unit="N/M/SEC"> 200 </damping_coeff>
+            <max_steer> 0 </max_steer>
+            <brake_group> NONE </brake_group>
+            <retractable> 0 </retractable>
+        </contact>
+    </ground_reactions>
 	
 	<propulsion>
         <engine file="engine">
@@ -169,7 +166,7 @@
                 <yaw> 0 </yaw>
             </orient>
             <feed>0</feed> <!--serbatoio da cui prende il carburante (0 se c'è solo un motore) -->
-            <thruster file="thruster">
+            <thruster file="thruster_ccw">
                 <location unit="M"> <!--Posizione del thruster rispetto a CM, da modificare(?) -->
                     <x> -1.075 </x>
                     <y> -1.102 </y>
@@ -180,7 +177,7 @@
                     <pitch> 0.0 </pitch>
                     <yaw> 0.0 </yaw>
                 </orient>
-                <p_factor>1.0</p_factor> <!-- effetto giroscopico dell'elica -->
+                <p_factor>1.0</p_factor> <!-- effetto giroscopico dell'elica --> 
             </thruster>
         </engine>
         
@@ -425,39 +422,75 @@
             </function>
         </axis>
 
-        <axis name="LIFT">
+<axis name="LIFT">
+            <function name="aero/coefficient/CL0">
+                <description>Lift_at_zero_alpha</description>
+                <product>
+                    <property>aero/qbar-psf</property>
+                    <property>metrics/Sw-sqft</property>
+                    <value>0.5457381</value> 
+                </product>
+            </function>
+
             <function name="aero/coefficient/Lalpha">
                 <description>Lift_due_to_alpha</description>
                 <product>
                     <property>aero/qbar-psf</property>
                     <property>metrics/Sw-sqft</property>
-                    <value>6.2047274</value> <!--è il valore del CLalfa-->
-                      <!--table>
-                          <independentVar>aero/alpha-rad</independentVar>
-                          <tableData>
-                              -0.1396	-0.3312006744
-                              -0.122	-0.2216600823
-                              -0.104	-0.1119023758
-                              -0.0872 	-0.002181761259
-							  -0.0698	0.1075699376
-							  -0.0523	0.2172941784
-							  -0.0349	0.3268828496
-							  -0.0174	0.4363580436
-							  0		0.5457381555
-							  0.0174		0.654876376
-							  0.0349		0.7638405022
-							  0.0523		0.8723865089
-							  0.0698		0.9807605094
-							  0.0872		1.089053072
-							  0.104		1.196360687
-							  0.122		1.30504963
-							  0.1396		1.412286709
-							  0.157		1.518855218
-							  0.174	1.626582291
-                          </tableData>
-                      </table-->
+                    <property>aero/alpha-rad</property> <value>6.2047274</value>
                 </product>
             </function>
+
+            <function name="aero/coefficient/Lde">
+                <description>Lift_due_to_Elevator_Deflection</description>
+                <product>
+                    <property>aero/qbar-psf</property>
+                    <property>fcs/elevator-pos-norm</property> 
+                    <value>0.6049687</value>
+                </product>
+            </function>
+    </axis> 
+
+    <!-- 
+
+
+
+
+
+
+<axis name="LIFT">
+            <function name="aero/coefficient/CLalpha">
+                <description>Lift_curve_from_table</description>
+                <product>
+                    <property>aero/qbar-psf</property>
+                    <property>metrics/Sw-sqft</property>
+                    <table>
+                        <independentVar>aero/alpha-rad</independentVar>
+                        <tableData>
+                            -0.1396    -0.3312006744
+                            -0.122     -0.2216600823
+                            -0.104     -0.1119023758
+                            -0.0872    -0.002181761259
+                            -0.0698     0.1075699376
+                            -0.0523     0.2172941784
+                            -0.0349     0.3268828496
+                            -0.0174     0.4363580436
+                             0          0.5457381555
+                             0.0174     0.654876376
+                             0.0349     0.7638405022
+                             0.0523     0.8723865089
+                             0.0698     0.9807605094
+                             0.0872     1.089053072
+                             0.104      1.196360687
+                             0.122      1.30504963
+                             0.1396     1.412286709
+                             0.157      1.518855218
+                             0.174      1.626582291
+                        </tableData>
+                    </table>
+                </product>
+            </function>
+
             <function name="aero/coefficient/Lde">
                 <description>Lift_due_to_Elevator_Deflection</description>
                 <product>
@@ -467,6 +500,9 @@
                 </product>
             </function>
         </axis>
+
+
+    -->
 
         <axis name="ROLL">
             <function name="aero/coefficient/Clb">
@@ -508,7 +544,7 @@
                     <property>metrics/Sw-sqft</property>
                     <property>metrics/bw-ft</property>
                     <property>fcs/left-aileron-pos-rad</property>
-                    <value>-0.4462468</value>
+                    <value>0.4462468</value>
                 </product>
             </function>
             <function name="aero/coefficient/Cldr">
