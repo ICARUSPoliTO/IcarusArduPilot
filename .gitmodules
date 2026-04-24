@@ -45,3 +45,6 @@
 [submodule "modules/littlefs"]
 	path = modules/littlefs
 	url = https://github.com/ArduPilot/littlefs.git
+[submodule "Tools/autotest/aircraft"]
+	path = Tools/autotest/aircraft
+	url = git@github.com:ICARUSPoliTO/JSBSim_models.git
